@@ -3,19 +3,17 @@
   "build": {
     "dockerfile": "Dockerfile"
   },
-  
   "features": {},
-  
   "postCreateCommand": [
-    "sh", "-c",
+    "sh",
+    "-c",
     "uv --version && ruff --version"
   ],
-  
   "customizations": {
     "vscode": {
       "extensions": [
         "ms-python.python",
-        "ms-python.vscode-pylance", 
+        "ms-python.vscode-pylance",
         "charliermarsh.ruff",
         "github.copilot",
         "github.copilot-chat",
@@ -51,18 +49,18 @@
       }
     }
   },
-  
   "containerEnv": {
     "PYTHONPATH": "/workspaces/${localWorkspaceFolderBasename}/src",
     "UV_CACHE_DIR": "/tmp/uv-cache",
     "PYTHONUNBUFFERED": "1",
     "PYTHONDONTWRITEBYTECODE": "1"
   },
-  
   "remoteUser": "root",
-  
-  "forwardPorts": [8000, 8080, 5000],
-  
+  "forwardPorts": [
+    8000,
+    8080,
+    5000
+  ],
   "portsAttributes": {
     "8000": {
       "label": "Application",
@@ -70,14 +68,13 @@
     },
     "8080": {
       "label": "Development Server",
-      "onAutoForward": "notify" 
+      "onAutoForward": "notify"
     },
     "5000": {
       "label": "Flask/FastAPI",
       "onAutoForward": "notify"
     }
   },
-  
   "mounts": [
     "source=${localWorkspaceFolder}/.vscode,target=/workspaces/${localWorkspaceFolderBasename}/.vscode,type=bind,consistency=cached"
   ]

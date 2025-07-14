@@ -65,31 +65,43 @@ ms-python.python,ms-python.vscode-pylance,charliermarsh.ruff,github.copilot,gith
    cd your-project
    ```
 
-2. **Add dev container configuration:**
-   Create `.devcontainer/devcontainer.json` with this container configuration.
+2. **Copy dev container configuration:**
+   Copy the `.devcontainer/` folder from this repository to your project.
 
 3. **Open in Dev Container:**
    - Open VS Code
    - Run Command Palette (`Ctrl+Shift+P`)
    - Select "Dev Containers: Reopen in Container"
 
+4. **Initialize your Python project:**
+
+   ```bash
+   # Initialize project with uv
+   uv init .
+
+   # Add your dependencies
+   uv add <your-packages>
+   ```
+
 ### Using uv for Package Management
 
-#### Install dependencies
+#### Initialize and manage dependencies
 
 ```bash
-# Create a new project
-uv init my-project
-cd my-project
+# Initialize a new project
+uv init .
 
 # Add dependencies
 uv add requests fastapi
 
 # Add development dependencies
-uv add --dev pytest black mypy
+uv add --dev pytest ruff mypy
 
-# Install from requirements
+# Install from existing requirements
 uv pip install -r requirements.txt
+
+# Generate requirements.txt
+uv pip freeze > requirements.txt
 ```
 
 #### Create virtual environment
@@ -177,13 +189,16 @@ your-project/
 │   └── your_package/
 ├── tests/
 ├── pyproject.toml
-├── requirements.txt
+├── requirements.txt (optional)
 └── README.md
 ```
 
 ### Common Commands
 
 ```bash
+# Initialize a new project with uv
+uv init .
+
 # Install project in development mode
 uv pip install -e .
 
