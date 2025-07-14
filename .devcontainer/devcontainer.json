@@ -74,8 +74,5 @@
       "label": "Flask/FastAPI",
       "onAutoForward": "notify"
     }
-  },
-  "mounts": [
-    "source=${localWorkspaceFolder}/.vscode,target=/workspaces/${localWorkspaceFolderBasename}/.vscode,type=bind,consistency=cached"
-  ]
+  }
 }
