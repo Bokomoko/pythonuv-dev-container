@@ -1,0 +1,84 @@
+{
+  "name": "Python UV Dev Container",
+  "build": {
+    "dockerfile": "Dockerfile"
+  },
+  
+  "features": {},
+  
+  "postCreateCommand": [
+    "sh", "-c",
+    "uv --version && ruff --version"
+  ],
+  
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-python.python",
+        "ms-python.vscode-pylance", 
+        "charliermarsh.ruff",
+        "github.copilot",
+        "github.copilot-chat",
+        "donjayamanne.python-environment-manager"
+      ],
+      "settings": {
+        "python.defaultInterpreterPath": "/usr/local/bin/python",
+        "python.terminal.activateEnvironment": true,
+        "python.linting.enabled": true,
+        "python.linting.ruffEnabled": true,
+        "python.formatting.provider": "none",
+        "python.analysis.typeCheckingMode": "basic",
+        "python.analysis.autoImportCompletions": true,
+        "[python]": {
+          "editor.defaultFormatter": "charliermarsh.ruff",
+          "editor.formatOnSave": true,
+          "editor.codeActionsOnSave": {
+            "source.organizeImports": "explicit",
+            "source.fixAll.ruff": "explicit"
+          }
+        },
+        "ruff.importStrategy": "fromEnvironment",
+        "ruff.organizeImports": true,
+        "ruff.fixAll": true,
+        "terminal.integrated.defaultProfile.linux": "bash",
+        "files.exclude": {
+          "**/__pycache__": true,
+          "**/.pytest_cache": true,
+          "**/*.pyc": true,
+          "**/.coverage": true,
+          "**/.mypy_cache": true
+        }
+      }
+    }
+  },
+  
+  "containerEnv": {
+    "PYTHONPATH": "/workspaces/${localWorkspaceFolderBasename}/src",
+    "UV_CACHE_DIR": "/tmp/uv-cache",
+    "PYTHONUNBUFFERED": "1",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  
+  "remoteUser": "root",
+  
+  "forwardPorts": [8000, 8080, 5000],
+  
+  "portsAttributes": {
+    "8000": {
+      "label": "Application",
+      "onAutoForward": "notify"
+    },
+    "8080": {
+      "label": "Development Server",
+      "onAutoForward": "notify" 
+    },
+    "5000": {
+      "label": "Flask/FastAPI",
+      "onAutoForward": "notify"
+    }
+  },
+  
+  "mounts": [
+    "source=${localWorkspaceFolder}/.vscode,target=/workspaces/${localWorkspaceFolderBasename}/.vscode,type=bind,consistency=cached"
+  ]
+}
